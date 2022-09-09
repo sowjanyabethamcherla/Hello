@@ -1,0 +1,34 @@
+.mat-header-cell {
+    flex: 0 0 auto;
+    color: black;
+    font-size: large;
+  }
+  
+  .mat-row {
+    background-color: aliceblue;
+    /* color: black; */
+    font-size: large;
+  }
+  
+  .mat-cell {
+    color: black;
+    font-size: large;
+  }
+  
+  .mat-column-ParametersIcon {
+    flex: 0 0 8%;
+    width: 8%;
+  }
+  
+  .mat-column-Path {
+    flex: 0 0 40%;
+    width: 40%;
+  }
+  
+  .mat-column-Method {
+    flex: 0 0 10%;
+    width: 10%;
+  }
+  
+  .mat-column-OperationId {
+  }

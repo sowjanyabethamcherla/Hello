@@ -1,0 +1,50 @@
+<div class="table-div mat-table-div" >
+  <mat-table [dataSource]="dataSource" multiTemplateDataRows >
+  <!-- DISPLAYED TABLE COLUMNS AND ROWS -->
+  <ng-container *ngFor="let column of ColumnsDef.headers; let colidx = index"
+                [matColumnDef]="column">
+    <mat-header-cell *matHeaderCellDef>
+      {{ column.includes('Icon') ? '': column }}
+    </mat-header-cell>
+    <div *ngIf="column === 'ParametersIcon'">
+      <mat-cell *matCellDef="let element; let idx = index">
+        <a (click)="toggleExpansion(element['path']+element['method'])"
+        style="z-index: 10;"
+        >
+          <img style="align-content: center;" alt="Subjects"
+            [src]="checkExpansion(element['path']+element['method']) ?
+                            '../../assets/expand_less_black_24dp.svg':
+                            '../../assets/expand_more_black_24dp.svg'"
+          >
+        </a>
+      </mat-cell>
+    </div>
+    <div *ngIf="column !== 'ParametersIcon'" >
+      <mat-cell *matCellDef="let element; let idx = dataIndex"
+          (click)="alert('Path row = '+idx)">
+        {{ element[ColumnsDef.keys[colidx]] }}
+      </mat-cell>
+    </div>
+  </ng-container>
+
+  <!-- EXPANSION ROW -->
+  <ng-container matColumnDef="expandedDetail">
+    <mat-cell *matCellDef="let element"
+        [@expandableRow]="checkExpansion(element['path']+element['method']) ?
+                            'expanded' : 'collapsed'"
+    >
+      <div *ngIf="checkExpansion(element['path']+element['method'])" style="width: 100%;">
+        <app-parameter-table [dataSource] = element.Parameters style="z-index: 4;"></app-parameter-table>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="ColumnsDef.headers; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let element; let idx = dataIndex; columns: ColumnsDef.headers; "
+    >
+  </mat-row>
+  <mat-row *matRowDef="let row; let element; columns: ['expandedDetail']"
+    [hidden]="checkExpansion(element['path']+element['method']) ? false : true">
+  </mat-row>
+  </mat-table>
+</div>
